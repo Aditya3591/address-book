@@ -65,7 +65,12 @@ class Addressbook:
         for obj in self.contact_list.values():
             obj.display()
 
-
+    def delete_contact(self,f_name):
+        if f_name in self.contact_list:
+            del self.contact_list[f_name]
+            print("contact deleted successfuly")
+        else:
+            print("invalid input")
 
 if __name__ == '__main__':
     contact=Contact('aditya','singh','baridh','jamshedpur','jharkhand','831017','8969745425','aditya12@gmail.com')
@@ -77,3 +82,6 @@ if __name__ == '__main__':
     f_name=input("enter the name of the contact first name to edit the contact details")
     address.update_contact(f_name)
     address.display_contacts()
+
+    f_name=input("enter the first name to delete the contact")
+    address.delete_contact(f_name)
