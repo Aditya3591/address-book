@@ -73,15 +73,51 @@ class Addressbook:
             print("invalid input")
 
 if __name__ == '__main__':
-    contact=Contact('aditya','singh','baridh','jamshedpur','jharkhand','831017','8969745425','aditya12@gmail.com')
+     
     address=Addressbook()
-    address.add_contact(contact)
-    print("ADDRESS BOOK")
-    print(address.contact_list)
     
-    f_name=input("enter the name of the contact first name to edit the contact details")
-    address.update_contact(f_name)
-    address.display_contacts()
+    while True:
+        print("\n1 to add contact")
+        print("2 to update contact")
+        print("3 to display contact")
+        print("4 to del contact")
+        print("5 To EXIT")
 
-    f_name=input("enter the first name to delete the contact")
-    address.delete_contact(f_name)
+        choice=input("enter your choice: ")
+
+        if choice=='1':
+
+            f_name=input("Enter your first name: ")
+            l_name=input("Enter your last name: ")
+            addres=input("Enter your address: ")
+            city=input("Enter your city: ")
+            state=input("Enter your state: ")
+            zip=input("Enter your pincode: ")
+            phn_num=input("Enter your phone number: ")
+            email=input("Enter your email id: ")
+        
+
+            contact=Contact(f_name,l_name,addres,city,state,zip,phn_num,email)
+    
+            address.add_contact(contact)
+            print(address.contact_list)
+
+        if choice=='2':
+
+            f_name=input("enter the name of the contact first name to edit the contact details: ")
+            address.update_contact(f_name)
+        if choice=='3':
+
+            address.display_contacts()
+
+        if choice=='4':
+
+
+            f_name=input("enter the first name to delete the contact: ")
+            address.delete_contact(f_name)
+
+        if choice=='5':
+            print("Exiting....")
+            break
+        else:
+            print("invalid choice")
