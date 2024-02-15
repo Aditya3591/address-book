@@ -25,6 +25,7 @@ class Contact:
 #contact1=Contact("aditya","singh","vijaya garden","jsr","jharkhand","831017","8969745425","aditasinghi12@gmail.com")
 #contact1.display()
     def __repr__(self) -> str:
+        
         return f"\nfirst name : {self.f_name}\nlast name: {self.l_name}\naddress : {self.addres}\ncity : {self.city}\nstate :{self.state}\nzip: {self.zip}\nphn number: {self.phn_num}\nemail: {self.email}"
         
 class Addressbook:
@@ -35,9 +36,44 @@ class Addressbook:
     def add_contact(self, contact_obj):
         self.contact_list[contact_obj.f_name] = contact_obj
 
+    def update_contact(self,f_name):
+         if f_name in self.contact_list:
+            contact=self.contact_list[f_name]
+            print("enter the details (press enter to keep the existing value)")
+            
+            new_l_name = input(f"Last Name ({contact.l_name}): ") or contact.l_name
+            new_address = input(f"Address ({contact.addres}): ") or contact.addres
+            new_city = input(f"City ({contact.city}): ") or contact.city
+            new_state = input(f"State ({contact.state}): ") or contact.state
+            new_zip = input(f"Zip Code ({contact.zip}): ") or contact.zip
+            new_phn_num = input(f"Phone Number ({contact.phn_num}): ") or contact.phn_num
+            new_email = input(f"Email ({contact.email}): ") or contact.email
+
+            # Update contact details
+            contact.l_name = new_l_name
+            contact.address = new_address
+            contact.city = new_city
+            contact.state = new_state
+            contact.zip = new_zip
+            contact.phn_num = new_phn_num
+            contact.email = new_email
+            print("Contact edited successfully.")
+         else:
+            print("Contact not found.")
+
+    def display_contacts(self):
+        for obj in self.contact_list.values():
+            obj.display()
+
+
 
 if __name__ == '__main__':
     contact=Contact('aditya','singh','baridh','jamshedpur','jharkhand','831017','8969745425','aditya12@gmail.com')
     address=Addressbook()
     address.add_contact(contact)
+    print("ADDRESS BOOK")
     print(address.contact_list)
+    
+    f_name=input("enter the name of the contact first name to edit the contact details")
+    address.update_contact(f_name)
+    address.display_contacts()
