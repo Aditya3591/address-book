@@ -80,7 +80,7 @@ if __name__ == '__main__':
         print("\n1 to add contact")
         print("2 to update contact")
         print("3 to display contact")
-        print("4 to del contact")
+        print("4 to del contact") 
         print("5 To EXIT")
 
         choice=input("enter your choice: ")
@@ -102,21 +102,21 @@ if __name__ == '__main__':
             address.add_contact(contact)
             print(address.contact_list)
 
-        if choice=='2':
+        elif choice=='2':
 
             f_name=input("enter the name of the contact first name to edit the contact details: ")
             address.update_contact(f_name)
-        if choice=='3':
+        elif choice=='3':
 
             address.display_contacts()
 
-        if choice=='4':
+        elif choice=='4':
 
 
             f_name=input("enter the first name to delete the contact: ")
             address.delete_contact(f_name)
 
-        if choice=='5':
+        elif choice=='5':
             print("Exiting....")
             break
         else:
