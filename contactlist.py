@@ -61,7 +61,19 @@ class Addressbook:
          else:
             print("Contact not found.")
 
+    def show_cont_with_city_or_state(self,location):
+            contact_list1=[]
+            for contact in self.contact_list.values():
+                if contact.city.lower()==location.lower() or contact.state.lower()==location.lower():
+                    contact_list1.append(contact)
+            return contact_list1
+        #  if (city in self.contact_list.values()  or state in self.contact_list.values()):
+        #     # self.contact_list[state]
+        #      print("shown bir")
+            
+
     def display_contacts(self):
+        
         for obj in self.contact_list.values():
             obj.display()
 
@@ -81,7 +93,8 @@ if __name__ == '__main__':
         print("2 to update contact")
         print("3 to display contact")
         print("4 to del contact") 
-        print("5 To EXIT")
+        print("5 to show contact using city or state")
+        print("6 To EXIT")
 
         choice=input("enter your choice: ")
 
@@ -115,9 +128,19 @@ if __name__ == '__main__':
 
             f_name=input("enter the first name to delete the contact: ")
             address.delete_contact(f_name)
+        elif choice== '5':
+            
+            location=input("enter city or state to retrive info: ")
+            contacts=address.show_cont_with_city_or_state(location)
 
-        elif choice=='5':
+            if contacts:
+                    print(f"Contacts in {location}:")
+                    for contact in contacts:
+                        print(contact.display())
+            else:
+                    print(f"No contacts found in {location}.")
+        elif choice=='6':
             print("Exiting....")
             break
         else:
-            print("invalid choice")
+            print("invalid choice") 
