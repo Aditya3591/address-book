@@ -1,3 +1,5 @@
+import csv
+import json
 class Contact:
     
     def __init__(self,f_name,l_name,addres,city,state,zip,phn_num,email):
@@ -81,8 +83,21 @@ class Addressbook:
             print("contact deleted successfuly")
         else:
             print("invalid input")
+    
+    #     try:
+    #         with open(f"{filename}.csv",'w',newline=' ') as file:
+    #             fieldname=['first name','last name','address','city','state','zip','phone number','email']
+    #             writer = csv.DictWriter(file, fieldnames=fieldname)
+    #             writer.writeheader()
+    #             for contact in self.contact_list.values():
+    #                 writer.writerow(contact)
 
+    #             reader=csv.DictReader(file)
+    #             for data in reader:
+    #                 print(data)
 
+    #     except FileNotFoundError:
+    #         print("file not found")
 
 class AddressSystem:
 
@@ -101,6 +116,51 @@ class AddressSystem:
         return self.address_book_dict.get(name)
     def display(self):
         return self.address_book_dict
+    
+    def convert_to_csv_file(self, book_name):
+        try:
+            book = self.address_book_dict.get(book_name)
+            if book:
+                print(f"Contacts in {book_name} address book:")
+                book.display_contacts()  
+
+                
+                with open('addresbook.csv', 'w', newline='') as file:
+                    fieldnames = ['f_name', 'l_name', 'addres', 'city', 'state', 'zip', 'phn_num', 'email']
+                    writer = csv.DictWriter(file, fieldnames=fieldnames)
+                    writer.writeheader()
+                    for contact in book.contact_list.values():
+                        writer.writerow(vars(contact))  
+
+                print(f"{book_name} address book converted to CSV successfully.")
+            else:
+                print(f"Address book '{book_name}' not found.")
+        except FileNotFoundError:
+            print("File not found.")
+
+
+    def convert_to_json_file(self,bookname):
+        try:
+            book=self.address_book_dict.get(book_name)
+            if book:
+                print(f"contacts in {book_name} address book :")
+                book.display_contacts()
+
+                with open('addressbook1.json','w',) as file:
+                    contacts_data=[]
+                    for contact in book.contact_list.values():
+                        contacts_data.append(vars(contact))
+                        
+                    json.dump(contacts_data,file,indent=4)
+                    
+                    file.write('\n')
+                        
+            else:
+                print("addres book not found")
+        except FileNotFoundError:
+            print("File not found")
+    
+
 
  
 
@@ -111,7 +171,9 @@ if __name__ == '__main__':
         print("1 to add address book name ")
         print("2 to enter an update  a address book name ")
         print("3 to get address book name ")
-        
+        print("4 To convert it into csv file")
+        print("5 to convert to json file")
+        print("6 to exit")
         
         choice=input("enter your choice")
         if choice=='1':
@@ -122,7 +184,7 @@ if __name__ == '__main__':
                 book = Addressbook(book_name)
             # create contact obj
             
-            contact=Contact('Aditya','Singh','bradh','jsr','jharkhand','831004','89697454','launda@gmail.com')
+            contact=Contact('Aditya','Singh','bradh','jsr','jharkhand','831004','89697454','aditya12@gmail.com')
             
             
             book.add_contact(contact) 
@@ -140,7 +202,7 @@ if __name__ == '__main__':
                 print("3 to display contact")
                 print("4 to del contact") 
                 print("5 to show contact using city or state")
-                print("6 To EXIT")
+                print("7 to exit")
 
                 choice=input("enter your choice: ")
 
@@ -186,10 +248,12 @@ if __name__ == '__main__':
                     else:
                             print(f"No contacts found in {location}.")
                 
-                
 
-                
-                elif choice=='6':
+                # elif choice=='6':
+
+                #     file_name=input("enter the csv file name ")
+                #     book.convert_to_csv_file(file_name)
+                elif choice=='7':
                     print("Exiting....")
                     break
                 else:
@@ -199,9 +263,15 @@ if __name__ == '__main__':
             book_name=input("enter the addres book name")
             print(multi_book.get_address_book_name(book_name))
 
-        elif choice=='4':
+            
+        elif choice == '4':
+            book_name = input("Enter the address book name to convert to CSV: ")
+            multi_book.convert_to_csv_file(book_name)
+                        
+        elif choice=='5':
+            book_name=input("enter the address book name:")
+            multi_book.convert_to_json_file(book_name)
+
+        elif choice=='6':
             print("Exiting....")
             break
-            
-                        
-        
