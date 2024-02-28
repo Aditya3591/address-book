@@ -2,10 +2,10 @@ import csv
 import json
 class Contact:
     
-    def __init__(self,f_name,l_name,addres,city,state,zip,phn_num,email):
+    def __init__(self,first_name,last_name,addres,city,state,zip,phn_num,email):
 
-        self.f_name=f_name
-        self.l_name=l_name
+        self.first_name=first_name
+        self.last_name=last_name
         self.addres=addres
         self.city=city
         self.state=state
@@ -14,8 +14,8 @@ class Contact:
         self.email=email
 
     def display(self):
-        print("first name: ",self.f_name)
-        print("last name: ",self.l_name)
+        print("first name: ",self.first_name)
+        print("last name: ",self.last_name)
         print("addres: ",self.addres)
         print("city: ",self.city)
         print("state: ",self.state)
@@ -25,7 +25,7 @@ class Contact:
         
     # def __repr__(self) -> str:
         
-    #     return f"\nfirst name : {self.f_name}\nlast name: {self.l_name}\naddress : {self.addres}\ncity : {self.city}\nstate :{self.state}\nzip: {self.zip}\nphn number: {self.phn_num}\nemail: {self.email}"
+    #     return f"\nfirst name : {self.first_name}\nlast name: {self.last_name}\naddress : {self.addres}\ncity : {self.city}\nstate :{self.state}\nzip: {self.zip}\nphn number: {self.phn_num}\nemail: {self.email}"
         
 class Addressbook:
 
@@ -34,14 +34,14 @@ class Addressbook:
         self.contact_list={}
 
     def add_contact(self, contact_obj):
-        self.contact_list[contact_obj.f_name] = contact_obj
+        self.contact_list[contact_obj.first_name] = contact_obj
 
-    def update_contact(self,f_name):
-         if f_name in self.contact_list:
-            contact=self.contact_list[f_name]
+    def update_contact(self,first_name):
+         if first_name in self.contact_list:
+            contact=self.contact_list[first_name]
             print("enter the details (press enter to keep the existing value)")
             
-            new_l_name = input(f"Last Name ({contact.l_name}): ") or contact.l_name
+            new_l_name = input(f"Last Name ({contact.last_name}): ") or contact.last_name
             new_address = input(f"Address ({contact.addres}): ") or contact.addres
             new_city = input(f"City ({contact.city}): ") or contact.city
             new_state = input(f"State ({contact.state}): ") or contact.state
@@ -50,7 +50,7 @@ class Addressbook:
             new_email = input(f"Email ({contact.email}): ") or contact.email
 
             # Update contact details
-            contact.l_name = new_l_name
+            contact.last_name = new_l_name
             contact.address = new_address
             contact.city = new_city
             contact.state = new_state
@@ -77,9 +77,9 @@ class Addressbook:
         for obj in self.contact_list.values():
             obj.display()
 
-    def delete_contact(self,f_name):
-        if f_name in self.contact_list:
-            del self.contact_list[f_name]
+    def delete_contact(self,first_name):
+        if first_name in self.contact_list:
+            del self.contact_list[first_name]
             print("contact deleted successfuly")
         else:
             print("invalid input")
@@ -126,7 +126,7 @@ class AddressSystem:
 
                 
                 with open('addresbook.csv', 'w', newline='') as file:
-                    fieldnames = ['f_name', 'l_name', 'addres', 'city', 'state', 'zip', 'phn_num', 'email']
+                    fieldnames = ['first_name', 'last_name', 'addres', 'city', 'state', 'zip', 'phn_num', 'email']
                     writer = csv.DictWriter(file, fieldnames=fieldnames)
                     writer.writeheader()
                     for contact in book.contact_list.values():
@@ -152,7 +152,7 @@ class AddressSystem:
                         contacts_data.append(vars(contact))
                         
                     json.dump(contacts_data,file,indent=4)
-                    
+                      
                     file.write('\n')
                         
             else:
@@ -208,8 +208,8 @@ if __name__ == '__main__':
 
                 if choice=='1':
 
-                    f_name=input("Enter your first name: ")
-                    l_name=input("Enter your last name: ")
+                    first_name=input("Enter your first name: ")
+                    last_name=input("Enter your last name: ")
                     addres=input("Enter your address: ")
                     city=input("Enter your city: ")
                     state=input("Enter your state: ")
@@ -218,15 +218,15 @@ if __name__ == '__main__':
                     email=input("Enter your email id: ")
                 
 
-                    contact=Contact(f_name,l_name,addres,city,state,zip,phn_num,email)
+                    contact=Contact(first_name,last_name,addres,city,state,zip,phn_num,email)
             
                     book.add_contact(contact)
                     print(book.contact_list)
 
                 elif choice=='2':
 
-                    f_name=input("enter the name of the contact first name to edit the contact details: ")
-                    book.update_contact(f_name)
+                    first_name=input("enter the name of the contact first name to edit the contact details: ")
+                    book.update_contact(first_name)
                 elif choice=='3':
 
                     book.display_contacts()
@@ -234,8 +234,8 @@ if __name__ == '__main__':
                 elif choice=='4':
 
 
-                    f_name=input("enter the first name to delete the contact: ")
-                    book.delete_contact(f_name)
+                    first_name=input("enter the first name to delete the contact: ")
+                    book.delete_contact(first_name)
                 elif choice== '5':
                     
                     location=input("enter city or state to retrive info: ")
